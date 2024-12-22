@@ -26,6 +26,10 @@ public class Runigram {
 		image = grayScaled(tinypic);
 		System.out.println();
 		print(image);
+
+		image = scaled(tinypic, 3, 5);
+		System.out.println();
+		print(image);
 	}
 
 	/** Returns a 2D array of Color values, representing the image data
@@ -136,8 +140,19 @@ public class Runigram {
 	 * The image is scaled (resized) to have the given width and height.
 	 */
 	public static Color[][] scaled(Color[][] image, int width, int height) {
-		//// Replace the following statement with your code
-		return null;
+		int h0 = image.length;			//old height
+		int h = height;					//new height	
+		int w0 = image[0].length;		//old width	
+		int w = width;					//new width	
+		Color[][] resImage = new Color[height][width];
+		for (int i = 0; i < height; i++) {
+			int HorizIndex = (int) (i * h0 / h);
+			for (int j = 0; j < width; j++) {
+				int VertIndex = (int) (j * w0 / w);
+				resImage[i][j] = image[HorizIndex][VertIndex];
+			}
+		}
+		return resImage;
 	}
 	
 	/**
