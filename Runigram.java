@@ -16,7 +16,7 @@ public class Runigram {
 		Color[][] image;
 
 		// Tests the horizontal flipping of an image:
-		image = flippedHorizontally(tinypic);
+		image = flippedVertically(tinypic);
 		System.out.println();
 		print(image);
 		
@@ -39,8 +39,15 @@ public class Runigram {
 		// For each pixel (i,j), reads 3 values from the file,
 		// creates from the 3 colors a new Color object, and 
 		// makes pixel (i,j) refer to that object.
-		//// Replace the following statement with your code.
-		return null;
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				int red = in.readInt();
+				int green = in.readInt();
+				int blue = in.readInt();
+				image[i][j] = new Color(red, green, blue);
+			}
+		}
+		return image;
 	}
 
     // Prints the RGB values of a given color.
@@ -58,32 +65,51 @@ public class Runigram {
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
 	private static void print(Color[][] image) {
-		//// Replace this comment with your code
-		//// Notice that all you have to so is print every element (i,j) of the array using the print(Color) function.
+		for (int i = 0; i < image.length; i++) {
+			for (int j = 0; j < image[0].length; j++) {
+				print(image[i][j]);
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
 	 * Returns an image which is the horizontally flipped version of the given image. 
 	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
-		//// Replace the following statement with your code
-		return null;
+		int numRows = image.length;
+		int numCols = image[0].length;
+		Color[][] resImage = new Color[numRows][numCols];
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				resImage[i][j] = image[i][numCols - j - 1];
+			}
+		}
+		return resImage;
 	}
 	
 	/**
 	 * Returns an image which is the vertically flipped version of the given image. 
 	 */
 	public static Color[][] flippedVertically(Color[][] image){
-		//// Replace the following statement with your code
-		return null;
+		int numRows = image.length;
+		int numCols = image[0].length;
+		Color[][] resImage = new Color[numRows][numCols];
+		for (int i = 0; i < numRows; i++) {
+				resImage[i] = image[numRows - i - 1];
+		}
+		return resImage;
 	}
 	
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
 	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
 	// the three values r = lum, g = lum, b = lum.
 	private static Color luminance(Color pixel) {
-		//// Replace the following statement with your code
-		return null;
+		int r = pixel.getRed();
+		int g = pixel.getGreen();
+		int b = pixel.getBlue();
+		int lum = (int) Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+		return new Color(lum, lum, lum);
 	}
 	
 	/**
