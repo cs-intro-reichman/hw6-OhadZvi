@@ -16,12 +16,16 @@ public class Runigram {
 		Color[][] image;
 
 		// Tests the horizontal flipping of an image:
-		image = flippedVertically(tinypic);
+		image = flippedHorizontally(tinypic);
 		System.out.println();
 		print(image);
 		
 		//// Write here whatever code you need in order to test your work.
 		//// You can continue using the image array.
+	
+		image = grayScaled(tinypic);
+		System.out.println();
+		print(image);
 	}
 
 	/** Returns a 2D array of Color values, representing the image data
@@ -104,11 +108,11 @@ public class Runigram {
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
 	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
 	// the three values r = lum, g = lum, b = lum.
-	private static Color luminance(Color pixel) {
+	private static Color luminance(Color pixel) {		//TODO check if the test rounds properly or down
 		int r = pixel.getRed();
 		int g = pixel.getGreen();
 		int b = pixel.getBlue();
-		int lum = (int) Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+		int lum = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 		return new Color(lum, lum, lum);
 	}
 	
