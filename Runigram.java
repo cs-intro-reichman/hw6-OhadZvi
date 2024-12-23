@@ -11,6 +11,13 @@ public class Runigram {
 		Color[][] tinypic = read("tinypic.ppm");
 		print(tinypic);
 
+//		Color[][] eyes = read("eyes.ppm");
+//		setCanvas(eyes);
+//		display(eyes);
+//		StdDraw.pause(1000);
+//		setCanvas(scaled(eyes, 400, 800));
+//		display(scaled(eyes, 400, 800));
+
 		// Creates an image which will be the result of various 
 		// image processing operations:
 		Color[][] image;
@@ -146,9 +153,9 @@ public class Runigram {
 		int w = width;					//new width	
 		Color[][] resImage = new Color[height][width];
 		for (int i = 0; i < height; i++) {
-			int HorizIndex = (int) (i * h0 / h);
+			int HorizIndex = (i * h0 / h);
 			for (int j = 0; j < width; j++) {
-				int VertIndex = (int) (j * w0 / w);
+				int VertIndex = (j * w0 / w);
 				resImage[i][j] = image[HorizIndex][VertIndex];
 			}
 		}
@@ -162,8 +169,10 @@ public class Runigram {
 	 * values in the two input color.
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
-		//// Replace the following statement with your code
-		return null;
+		int r = (int) ((c1.getRed() * alpha) + (c2.getRed() * (1 - alpha)));
+		int g = (int) ((c1.getGreen() * alpha) + (c2.getGreen() * (1 - alpha)));
+		int b = (int) ((c1.getBlue() * alpha) + (c2.getBlue() * (1 - alpha)));
+		return new Color(r, g, b);
 	}
 	
 	/**
@@ -173,8 +182,15 @@ public class Runigram {
 	 * The two images must have the same dimensions.
 	 */
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
-		//// Replace the following statement with your code
-		return null;
+		int numRows = image1.length;
+		int numCols = image1[0].length;
+		Color[][] resImage = new Color[numRows][numCols];
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				resImage[i][j] = blend(image1[i][j], image2[i][j], alpha);
+			}
+		}
+		return resImage;
 	}
 
 	/**
@@ -184,7 +200,17 @@ public class Runigram {
 	 * of the source image.
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
-		//// Replace this comment with your code
+		if (source.length != target.length || source[0].length != target[0].length) {
+			target = scaled(target, source[0].length, source.length);
+		}
+		Color[][] tempSource = source;
+		for (int i = 0; i < n; i++) {
+			double alpha = (double) (n-i) / n;
+			tempSource = blend(tempSource, target, alpha);
+			display(tempSource);
+			StdDraw.pause(500);
+		}
+
 	}
 	
 	/** Creates a canvas for the given image. */
